@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Product>
+
+@{
+    ViewData["Title"] = "Privacy Policy";
+}
+<h1>Корзина продуктов</h1>
+
+<table class="table table-bordered table-hover mb-0">
+    <thead>
+        <tr>
+            <th scope="col">Название</th>
+            <th scope="col">Количество</th>
+            <th scope="col">Цена (1 шт)</th>
+            <th scope="col">Описание</th>
+            <th scope="col">Тэг</th>
+            <th scope="col">Общая цена</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.name</td>
+                <td>@product.count</td>
+                <td>@product.price</td>
+                <td>@product.description</td>
+                <td>@product.sku</td>
+                <td>@(product.price * product.count)$</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<table class="table table-bordered">
+    <tr>
+        <td class="w-25">Всего</td>
+        <td class="w-75 text-center"><strong>@Model.Sum(i => (i.count * i.price))$</strong></td>
+    </tr>
+</table>
+<div class="row d-flex justify-content-center">
+    <a asp-action="PaymentPayPal" asp-controller="Home" class="btn btn-success">Оплатить</a>
+</div>
